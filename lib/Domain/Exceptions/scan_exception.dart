@@ -1,0 +1,1 @@
+class ScanException implements Exception {}
