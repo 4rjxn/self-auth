@@ -5,7 +5,10 @@ implimentation of domain layer repository to fetch data from local_database
 import 'dart:isolate';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/services.dart';
 import 'package:qauth/Data/DataSource/LocalDB/local_db.dart';
+import 'package:qauth/Data/EncryptionHandlers/Handlers/encryption_handler.dart';
+import 'package:qauth/Data/EncryptionHandlers/LocalKeyStore/key_types.dart';
 import 'package:qauth/Data/Mappers/entity_to_model_mapper.dart';
 import 'package:qauth/Data/Mappers/model_to_entity_mapper.dart';
 import 'package:qauth/Data/Models/AccountModel/account_model.dart';
@@ -18,10 +21,22 @@ class AccountStorageRepoImpl implements AccountStoreRepository {
   @override
   Future<List<AccountEntity>> getAllAccounts() async {
     final List<AccountModel> accounts = await _localDatabase.getAllAccounts();
-    return await Isolate.run(() {
-      return accounts
-          .map((e) => ModelToEntityMapper.mapToAccountEntity(model: e))
-          .toList();
+    //token needed for isolate to run;
+    final rootToken = ServicesBinding.rootIsolateToken!;
+    return await Isolate.run(() async {
+      BackgroundIsolateBinaryMessenger.ensureInitialized(rootToken);
+      final List<AccountEntity> accountEntities = [];
+      for (final account in accounts) {
+        accountEntities.add(
+          ModelToEntityMapper.mapToAccountEntity(
+            model: await EncryptionHandler.decrypt(
+              account: account,
+              keyType: KeyType.storeKey,
+            ),
+          ),
+        );
+      }
+      return accountEntities;
     });
   }
 
@@ -29,9 +44,11 @@ class AccountStorageRepoImpl implements AccountStoreRepository {
   Future<Either<AccountStorageException, Unit>> addNewAccount({
     required AccountEntity accountEntity,
   }) async {
-    if (await _localDatabase.setNewAccount(
-      data: EntityToModelMapper.mapToAccountModel(entity: accountEntity),
-    )) {
+    final AccountModel encryptedModel = await EncryptionHandler.encrypt(
+      account: EntityToModelMapper.mapToAccountModel(entity: accountEntity),
+      keyType: KeyType.storeKey,
+    );
+    if (await _localDatabase.setNewAccount(data: encryptedModel)) {
       return Right(unit);
     } else {
       return Left(
@@ -45,7 +62,10 @@ class AccountStorageRepoImpl implements AccountStoreRepository {
     required AccountEntity accountEntity,
   }) async {
     if (await _localDatabase.updateAccount(
-      data: EntityToModelMapper.mapToAccountModel(entity: accountEntity),
+      data: await EncryptionHandler.encrypt(
+        account: EntityToModelMapper.mapToAccountModel(entity: accountEntity),
+        keyType: KeyType.storeKey,
+      ),
     )) {
       return Right(unit);
     } else {

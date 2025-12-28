@@ -16,6 +16,7 @@ abstract class AccountModel with _$AccountModel {
     required final int length,
     required final int interval,
     required final String issuer,
+    required final String iv,
   }) = _AccountModel;
 
   factory AccountModel.fromJson(Map<String, Object?> json) =>

@@ -35,6 +35,12 @@ class HomePage extends StatelessWidget {
           },
         ),
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () async {
+              await AutoRouter.of(context).push(SettingsRoute());
+            },
+            icon: Icon(Icons.menu),
+          ),
           actions: [
             IconButton(
               onPressed: () async {
@@ -43,7 +49,7 @@ class HomePage extends StatelessWidget {
               icon: Icon(Icons.qr_code),
             ),
           ],
-          title: Text("Welcome", style: TextStyle(fontSize: 25.sp)),
+          title: Text("Welcome"),
         ),
         body: BlocListener<HomePageBloc, HomePageState>(
           listenWhen: (previous, current) => current is HomePageNonViewState,

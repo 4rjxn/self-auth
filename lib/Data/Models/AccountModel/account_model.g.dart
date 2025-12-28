@@ -14,6 +14,7 @@ _AccountModel _$AccountModelFromJson(Map<String, dynamic> json) =>
       length: (json['length'] as num).toInt(),
       interval: (json['interval'] as num).toInt(),
       issuer: json['issuer'] as String,
+      iv: json['iv'] as String,
     );
 
 Map<String, dynamic> _$AccountModelToJson(_AccountModel instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$AccountModelToJson(_AccountModel instance) =>
       'length': instance.length,
       'interval': instance.interval,
       'issuer': instance.issuer,
+      'iv': instance.iv,
     };

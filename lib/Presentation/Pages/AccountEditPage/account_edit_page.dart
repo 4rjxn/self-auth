@@ -48,7 +48,7 @@ class _AccountEditPageState extends State<AccountEditPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: Text("Add Account")),
         body: Form(
           key: _formKey,
           child: Padding(

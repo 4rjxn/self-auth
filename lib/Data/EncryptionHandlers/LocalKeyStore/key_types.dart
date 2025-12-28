@@ -1,0 +1,1 @@
+enum KeyType { backupKey, storeKey }

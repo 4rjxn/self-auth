@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:qauth/Data/Repository/AccountStorageRepo/account_storage_repo_impl.dart';
+import 'package:qauth/Data/Repository/AccountStorageRepoImpl/account_storage_repo_impl.dart';
 import 'package:qauth/Domain/Usecases/add_account_usecase.dart';
 import 'package:qauth/Domain/Usecases/delete_account_usecase.dart';
 import 'package:qauth/Domain/Usecases/get_accounts_usecase.dart';

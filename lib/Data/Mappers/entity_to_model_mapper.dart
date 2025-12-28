@@ -14,6 +14,7 @@ class EntityToModelMapper {
       length: entity.length,
       interval: entity.interval,
       issuer: entity.issuer,
+      iv: "",
     );
   }
 }

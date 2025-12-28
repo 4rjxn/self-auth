@@ -1,7 +1,7 @@
 import 'dart:isolate';
 import 'package:qauth/Data/DataSource/LocalDB/local_db_helper.dart';
 import 'package:qauth/Data/Models/AccountModel/account_model.dart';
-import 'package:sqflite_sqlcipher/sqflite.dart';
+import 'package:sqflite/sqflite.dart';
 
 class LocalDatabase {
   static Database? _db;

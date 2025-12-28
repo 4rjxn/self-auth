@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AccountModel {
 
- int get id; String get secretKey; String get title; int get length; int get interval; String get issuer;
+ int get id; String get secretKey; String get title; int get length; int get interval; String get issuer; String get iv;
 /// Create a copy of AccountModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AccountModelCopyWith<AccountModel> get copyWith => _$AccountModelCopyWithImpl<A
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountModel&&(identical(other.id, id) || other.id == id)&&(identical(other.secretKey, secretKey) || other.secretKey == secretKey)&&(identical(other.title, title) || other.title == title)&&(identical(other.length, length) || other.length == length)&&(identical(other.interval, interval) || other.interval == interval)&&(identical(other.issuer, issuer) || other.issuer == issuer));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountModel&&(identical(other.id, id) || other.id == id)&&(identical(other.secretKey, secretKey) || other.secretKey == secretKey)&&(identical(other.title, title) || other.title == title)&&(identical(other.length, length) || other.length == length)&&(identical(other.interval, interval) || other.interval == interval)&&(identical(other.issuer, issuer) || other.issuer == issuer)&&(identical(other.iv, iv) || other.iv == iv));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,secretKey,title,length,interval,issuer);
+int get hashCode => Object.hash(runtimeType,id,secretKey,title,length,interval,issuer,iv);
 
 @override
 String toString() {
-  return 'AccountModel(id: $id, secretKey: $secretKey, title: $title, length: $length, interval: $interval, issuer: $issuer)';
+  return 'AccountModel(id: $id, secretKey: $secretKey, title: $title, length: $length, interval: $interval, issuer: $issuer, iv: $iv)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AccountModelCopyWith<$Res>  {
   factory $AccountModelCopyWith(AccountModel value, $Res Function(AccountModel) _then) = _$AccountModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String secretKey, String title, int length, int interval, String issuer
+ int id, String secretKey, String title, int length, int interval, String issuer, String iv
 });
 
 
@@ -65,7 +65,7 @@ class _$AccountModelCopyWithImpl<$Res>
 
 /// Create a copy of AccountModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? secretKey = null,Object? title = null,Object? length = null,Object? interval = null,Object? issuer = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? secretKey = null,Object? title = null,Object? length = null,Object? interval = null,Object? issuer = null,Object? iv = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,secretKey: null == secretKey ? _self.secretKey : secretKey // ignore: cast_nullable_to_non_nullable
@@ -73,6 +73,7 @@ as String,title: null == title ? _self.title : title // ignore: cast_nullable_to
 as String,length: null == length ? _self.length : length // ignore: cast_nullable_to_non_nullable
 as int,interval: null == interval ? _self.interval : interval // ignore: cast_nullable_to_non_nullable
 as int,issuer: null == issuer ? _self.issuer : issuer // ignore: cast_nullable_to_non_nullable
+as String,iv: null == iv ? _self.iv : iv // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String secretKey,  String title,  int length,  int interval,  String issuer)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String secretKey,  String title,  int length,  int interval,  String issuer,  String iv)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AccountModel() when $default != null:
-return $default(_that.id,_that.secretKey,_that.title,_that.length,_that.interval,_that.issuer);case _:
+return $default(_that.id,_that.secretKey,_that.title,_that.length,_that.interval,_that.issuer,_that.iv);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.id,_that.secretKey,_that.title,_that.length,_that.interval
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String secretKey,  String title,  int length,  int interval,  String issuer)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String secretKey,  String title,  int length,  int interval,  String issuer,  String iv)  $default,) {final _that = this;
 switch (_that) {
 case _AccountModel():
-return $default(_that.id,_that.secretKey,_that.title,_that.length,_that.interval,_that.issuer);case _:
+return $default(_that.id,_that.secretKey,_that.title,_that.length,_that.interval,_that.issuer,_that.iv);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.id,_that.secretKey,_that.title,_that.length,_that.interval
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String secretKey,  String title,  int length,  int interval,  String issuer)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String secretKey,  String title,  int length,  int interval,  String issuer,  String iv)?  $default,) {final _that = this;
 switch (_that) {
 case _AccountModel() when $default != null:
-return $default(_that.id,_that.secretKey,_that.title,_that.length,_that.interval,_that.issuer);case _:
+return $default(_that.id,_that.secretKey,_that.title,_that.length,_that.interval,_that.issuer,_that.iv);case _:
   return null;
 
 }
@@ -214,7 +215,7 @@ return $default(_that.id,_that.secretKey,_that.title,_that.length,_that.interval
 @JsonSerializable()
 
 class _AccountModel implements AccountModel {
-  const _AccountModel({required this.id, required this.secretKey, required this.title, required this.length, required this.interval, required this.issuer});
+  const _AccountModel({required this.id, required this.secretKey, required this.title, required this.length, required this.interval, required this.issuer, required this.iv});
   factory _AccountModel.fromJson(Map<String, dynamic> json) => _$AccountModelFromJson(json);
 
 @override final  int id;
@@ -223,6 +224,7 @@ class _AccountModel implements AccountModel {
 @override final  int length;
 @override final  int interval;
 @override final  String issuer;
+@override final  String iv;
 
 /// Create a copy of AccountModel
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountModel&&(identical(other.id, id) || other.id == id)&&(identical(other.secretKey, secretKey) || other.secretKey == secretKey)&&(identical(other.title, title) || other.title == title)&&(identical(other.length, length) || other.length == length)&&(identical(other.interval, interval) || other.interval == interval)&&(identical(other.issuer, issuer) || other.issuer == issuer));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountModel&&(identical(other.id, id) || other.id == id)&&(identical(other.secretKey, secretKey) || other.secretKey == secretKey)&&(identical(other.title, title) || other.title == title)&&(identical(other.length, length) || other.length == length)&&(identical(other.interval, interval) || other.interval == interval)&&(identical(other.issuer, issuer) || other.issuer == issuer)&&(identical(other.iv, iv) || other.iv == iv));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,secretKey,title,length,interval,issuer);
+int get hashCode => Object.hash(runtimeType,id,secretKey,title,length,interval,issuer,iv);
 
 @override
 String toString() {
-  return 'AccountModel(id: $id, secretKey: $secretKey, title: $title, length: $length, interval: $interval, issuer: $issuer)';
+  return 'AccountModel(id: $id, secretKey: $secretKey, title: $title, length: $length, interval: $interval, issuer: $issuer, iv: $iv)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$AccountModelCopyWith<$Res> implements $AccountModelCopyWi
   factory _$AccountModelCopyWith(_AccountModel value, $Res Function(_AccountModel) _then) = __$AccountModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String secretKey, String title, int length, int interval, String issuer
+ int id, String secretKey, String title, int length, int interval, String issuer, String iv
 });
 
 
@@ -274,7 +276,7 @@ class __$AccountModelCopyWithImpl<$Res>
 
 /// Create a copy of AccountModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? secretKey = null,Object? title = null,Object? length = null,Object? interval = null,Object? issuer = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? secretKey = null,Object? title = null,Object? length = null,Object? interval = null,Object? issuer = null,Object? iv = null,}) {
   return _then(_AccountModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,secretKey: null == secretKey ? _self.secretKey : secretKey // ignore: cast_nullable_to_non_nullable
@@ -282,6 +284,7 @@ as String,title: null == title ? _self.title : title // ignore: cast_nullable_to
 as String,length: null == length ? _self.length : length // ignore: cast_nullable_to_non_nullable
 as int,interval: null == interval ? _self.interval : interval // ignore: cast_nullable_to_non_nullable
 as int,issuer: null == issuer ? _self.issuer : issuer // ignore: cast_nullable_to_non_nullable
+as String,iv: null == iv ? _self.iv : iv // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

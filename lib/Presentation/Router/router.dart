@@ -8,5 +8,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: HomeRoute.page, initial: true),
     AutoRoute(page: AccountEditRoute.page, fullscreenDialog: true),
     AutoRoute(page: ScanCodeRoute.page, fullscreenDialog: true),
+    AutoRoute(page: SettingsRoute.page),
+    AutoRoute(page: BackupRoute.page),
   ];
 }

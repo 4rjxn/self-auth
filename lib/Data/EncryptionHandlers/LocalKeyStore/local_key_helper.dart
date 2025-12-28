@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:isolate';
 import 'dart:math';
 
@@ -19,9 +20,9 @@ class LocalKeyStore {
   );
   String? _cachedKey;
 
-  Future<String?> getKey() async {
+  Future<String> getKey() async {
     if (_cachedKey != null) {
-      return _cachedKey;
+      return _cachedKey!;
     }
     String? key = await _secureStorage.read(key: "key");
     if (key == null) {
@@ -30,8 +31,7 @@ class LocalKeyStore {
           16,
           (_) => Random.secure().nextInt(256),
         );
-        final key = ikey.map((e) => e.toRadixString(16)).join('');
-        return key;
+        return base64.encode(ikey);
       });
       await _secureStorage.write(key: "key", value: newKey);
       key = newKey;
