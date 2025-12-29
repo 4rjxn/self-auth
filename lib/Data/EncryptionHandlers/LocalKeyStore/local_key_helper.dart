@@ -19,6 +19,19 @@ class LocalKeyStore {
     ),
   );
   String? _cachedKey;
+  String? _cachedBackupKey = "q3fJ2A9kT6mR1wX8ZL4sQA==";
+  Future<String?> getBackupKey() async {
+    if (_cachedBackupKey != null) {
+      return _cachedBackupKey!;
+    }
+    String? key = await _secureStorage.read(key: "backupKey");
+    if (key == null) {
+      return null;
+    } else {
+      _cachedBackupKey = key;
+      return key;
+    }
+  }
 
   Future<String> getKey() async {
     if (_cachedKey != null) {

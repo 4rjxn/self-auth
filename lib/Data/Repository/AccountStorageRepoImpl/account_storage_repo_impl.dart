@@ -8,7 +8,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 import 'package:qauth/Data/DataSource/LocalDB/local_db.dart';
 import 'package:qauth/Data/EncryptionHandlers/Handlers/encryption_handler.dart';
-import 'package:qauth/Data/EncryptionHandlers/LocalKeyStore/key_types.dart';
 import 'package:qauth/Data/Mappers/entity_to_model_mapper.dart';
 import 'package:qauth/Data/Mappers/model_to_entity_mapper.dart';
 import 'package:qauth/Data/Models/AccountModel/account_model.dart';
@@ -29,10 +28,7 @@ class AccountStorageRepoImpl implements AccountStoreRepository {
       for (final account in accounts) {
         accountEntities.add(
           ModelToEntityMapper.mapToAccountEntity(
-            model: await EncryptionHandler.decrypt(
-              account: account,
-              keyType: KeyType.storeKey,
-            ),
+            model: await EncryptionHandler.decrypt(account: account),
           ),
         );
       }
@@ -46,7 +42,6 @@ class AccountStorageRepoImpl implements AccountStoreRepository {
   }) async {
     final AccountModel encryptedModel = await EncryptionHandler.encrypt(
       account: EntityToModelMapper.mapToAccountModel(entity: accountEntity),
-      keyType: KeyType.storeKey,
     );
     if (await _localDatabase.setNewAccount(data: encryptedModel)) {
       return Right(unit);
@@ -64,7 +59,6 @@ class AccountStorageRepoImpl implements AccountStoreRepository {
     if (await _localDatabase.updateAccount(
       data: await EncryptionHandler.encrypt(
         account: EntityToModelMapper.mapToAccountModel(entity: accountEntity),
-        keyType: KeyType.storeKey,
       ),
     )) {
       return Right(unit);
