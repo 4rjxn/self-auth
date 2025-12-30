@@ -7,18 +7,20 @@ import 'package:path_provider/path_provider.dart';
 import 'package:qauth/Data/DataSource/LocalDB/local_db.dart';
 import 'package:qauth/Data/EncryptionHandlers/Handlers/backup_encryption_handler.dart';
 import 'package:qauth/Data/EncryptionHandlers/Handlers/encryption_handler.dart';
+import 'package:qauth/Data/EncryptionHandlers/LocalKeyStore/local_key_helper.dart';
 import 'package:qauth/Data/Models/AccountModel/account_model.dart';
 import 'package:qauth/Domain/Repository/BackupManagerRepo/backup_manager_repo.dart';
 
 class BackupManagerRepoImpl implements BackupManagerRepo {
   final LocalDatabase _localDatabase = LocalDatabase.instance;
   @override
-  Future<void> backup() async {
+  Future<void> backup({required String backupPassword}) async {
     final List<AccountModel> accounts = await _localDatabase.getAllAccounts();
     //token needed for isolate to run;
     final rootToken = ServicesBinding.rootIsolateToken!;
     await Isolate.run(() async {
       BackgroundIsolateBinaryMessenger.ensureInitialized(rootToken);
+      await LocalKeyStore().setBackupKey(backupPassword: backupPassword);
       final List<AccountModel> accountModels = [];
       for (final account in accounts) {
         accountModels.add(await EncryptionHandler.decrypt(account: account));
@@ -28,8 +30,9 @@ class BackupManagerRepoImpl implements BackupManagerRepo {
           .toList();
       final String encryptedJsonData =
           await BackupEncryptionHandler.encryptJsonData(jsonData: jsonData);
-      final Directory dir = await getApplicationDocumentsDirectory();
-      final File backupFile = File(p.join(dir.path, "backup.alp"));
+      final Directory? dir = await getExternalStorageDirectory();
+      final File backupFile = File(p.join(dir!.path, "backup.alp"));
+      print("saver dire:::::: ${dir.path}");
       await backupFile.writeAsString(encryptedJsonData);
     });
   }

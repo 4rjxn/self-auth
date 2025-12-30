@@ -4,7 +4,7 @@ class BackupUsecase {
   final BackupManagerRepo backupManagerRepo;
 
   BackupUsecase({required this.backupManagerRepo});
-  Future<void> call() async {
-    await backupManagerRepo.backup();
+  Future<void> call({required String backupPassword}) async {
+    await backupManagerRepo.backup(backupPassword: backupPassword);
   }
 }

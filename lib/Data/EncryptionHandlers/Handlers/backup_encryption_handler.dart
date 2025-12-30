@@ -5,13 +5,15 @@ class BackupEncryptionHandler {
   static Future<String> encryptJsonData({
     required List<Map<String, dynamic>> jsonData,
   }) async {
-    final key = await LocalKeyStore().getBackupKey();
-    final Encrypter encrypter = Encrypter(AES(Key.fromBase64(key!)));
+    final keyList = (await LocalKeyStore().getBackupKey())!
+        .split("\$")
+        .toList();
+    final Encrypter encrypter = Encrypter(AES(Key.fromBase64(keyList.last)));
     final IV iv = IV.fromLength(16);
     final String encryptedData = (encrypter.encrypt(
       jsonData.toString(),
       iv: iv,
     )).base64;
-    return "${iv.base64}$encryptedData";
+    return "${keyList[0]}${iv.base64}$encryptedData";
   }
 }

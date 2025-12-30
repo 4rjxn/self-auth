@@ -73,18 +73,46 @@ class AccountEditRouteArgs {
 
 /// generated route for
 /// [_i2.BackupPage]
-class BackupRoute extends _i6.PageRouteInfo<void> {
-  const BackupRoute({List<_i6.PageRouteInfo>? children})
-    : super(BackupRoute.name, initialChildren: children);
+class BackupRoute extends _i6.PageRouteInfo<BackupRouteArgs> {
+  BackupRoute({_i7.Key? key, List<_i6.PageRouteInfo>? children})
+    : super(
+        BackupRoute.name,
+        args: BackupRouteArgs(key: key),
+        initialChildren: children,
+      );
 
   static const String name = 'BackupRoute';
 
   static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
-      return const _i2.BackupPage();
+      final args = data.argsAs<BackupRouteArgs>(
+        orElse: () => const BackupRouteArgs(),
+      );
+      return _i2.BackupPage(key: args.key);
     },
   );
+}
+
+class BackupRouteArgs {
+  const BackupRouteArgs({this.key});
+
+  final _i7.Key? key;
+
+  @override
+  String toString() {
+    return 'BackupRouteArgs{key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! BackupRouteArgs) return false;
+    return key == other.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
 }
 
 /// generated route for

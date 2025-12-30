@@ -1,3 +1,3 @@
 abstract class BackupManagerRepo {
-  Future<void> backup() async {}
+  Future<void> backup({required String backupPassword}) async {}
 }
