@@ -3,7 +3,7 @@ import 'dart:isolate';
 
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:qauth/Data/DataSource/LocalDB/local_db.dart';
 import 'package:qauth/Data/EncryptionHandlers/Handlers/backup_encryption_handler.dart';
 import 'package:qauth/Data/EncryptionHandlers/Handlers/encryption_handler.dart';
@@ -14,11 +14,14 @@ import 'package:qauth/Domain/Repository/BackupManagerRepo/backup_manager_repo.da
 class BackupManagerRepoImpl implements BackupManagerRepo {
   final LocalDatabase _localDatabase = LocalDatabase.instance;
   @override
-  Future<void> backup({required String backupPassword}) async {
+  Future<void> backup({
+    required String backupPassword,
+    required String backUpPath,
+  }) async {
     final List<AccountModel> accounts = await _localDatabase.getAllAccounts();
     //token needed for isolate to run;
     final rootToken = ServicesBinding.rootIsolateToken!;
-    await Isolate.run(() async {
+    final String encryptedJsonData = await Isolate.run(() async {
       BackgroundIsolateBinaryMessenger.ensureInitialized(rootToken);
       await LocalKeyStore().setBackupKey(backupPassword: backupPassword);
       final List<AccountModel> accountModels = [];
@@ -28,12 +31,11 @@ class BackupManagerRepoImpl implements BackupManagerRepo {
       final List<Map<String, dynamic>> jsonData = accountModels
           .map((account) => account.toJson())
           .toList();
-      final String encryptedJsonData =
-          await BackupEncryptionHandler.encryptJsonData(jsonData: jsonData);
-      final Directory? dir = await getExternalStorageDirectory();
-      final File backupFile = File(p.join(dir!.path, "backup.alp"));
-      print("saver dire:::::: ${dir.path}");
-      await backupFile.writeAsString(encryptedJsonData);
+      return await BackupEncryptionHandler.encryptJsonData(jsonData: jsonData);
     });
+    final File backupFile = File(p.join(backUpPath, "backup.alp"));
+    print("saver dire:::::: $backUpPath");
+    await Permission.storage.request();
+    await backupFile.writeAsString(encryptedJsonData);
   }
 }

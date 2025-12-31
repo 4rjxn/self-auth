@@ -6,6 +6,7 @@ sealed class SettingsPageEvent {
 
 class BackupEvent extends SettingsPageEvent {
   final String backupPassword;
+  final String backupPath;
 
-  BackupEvent({required this.backupPassword});
+  BackupEvent({required this.backupPassword, required this.backupPath});
 }

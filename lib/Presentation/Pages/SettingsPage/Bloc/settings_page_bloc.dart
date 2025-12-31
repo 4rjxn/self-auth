@@ -13,6 +13,9 @@ class SettingsPageBloc extends Bloc<SettingsPageEvent, SettingsPageState> {
     BackupEvent event,
     Emitter<SettingsPageState> emit,
   ) async {
-    await getIt<BackupUsecase>().call(backupPassword: event.backupPassword);
+    await getIt<BackupUsecase>().call(
+      backupPassword: event.backupPassword,
+      backUpPath: event.backupPath,
+    );
   }
 }
