@@ -1,9 +1,8 @@
-import 'dart:io';
+import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:flutter/services.dart';
-import 'package:path/path.dart' as p;
-import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:qauth/Data/DataSource/LocalDB/local_db.dart';
 import 'package:qauth/Data/EncryptionHandlers/Handlers/backup_encryption_handler.dart';
 import 'package:qauth/Data/EncryptionHandlers/Handlers/encryption_handler.dart';
@@ -21,7 +20,7 @@ class BackupManagerRepoImpl implements BackupManagerRepo {
     final List<AccountModel> accounts = await _localDatabase.getAllAccounts();
     //token needed for isolate to run;
     final rootToken = ServicesBinding.rootIsolateToken!;
-    final String encryptedJsonData = await Isolate.run(() async {
+    await Isolate.run(() async {
       BackgroundIsolateBinaryMessenger.ensureInitialized(rootToken);
       await LocalKeyStore().setBackupKey(backupPassword: backupPassword);
       final List<AccountModel> accountModels = [];
@@ -31,11 +30,15 @@ class BackupManagerRepoImpl implements BackupManagerRepo {
       final List<Map<String, dynamic>> jsonData = accountModels
           .map((account) => account.toJson())
           .toList();
-      return await BackupEncryptionHandler.encryptJsonData(jsonData: jsonData);
+      final String encryptedJsonData =
+          await BackupEncryptionHandler.encryptJsonData(jsonData: jsonData);
+      await FlutterFileDialog.saveFileToDirectory(
+        directory: backUpPath,
+        data: utf8.encode(encryptedJsonData),
+        fileName: "backup.alp",
+        mimeType: "application/octet-stream",
+        replace: true,
+      );
     });
-    final File backupFile = File(p.join(backUpPath, "backup.alp"));
-    print("saver dire:::::: $backUpPath");
-    await Permission.storage.request();
-    await backupFile.writeAsString(encryptedJsonData);
   }
 }

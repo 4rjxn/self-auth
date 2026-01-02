@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:qauth/Presentation/Pages/SettingsPage/Bloc/settings_page_bloc.dart';
 
 @RoutePage()
@@ -33,12 +32,9 @@ class BackupPage extends StatelessWidget {
               child: TextField(
                 controller: _pathFieldController,
                 onTap: () async {
-                  await Permission.storage.request();
-                  final userPickedPath = await FilePickerIO()
-                      .getDirectoryPath();
-                  if (userPickedPath != null) {
-                    _pathFieldController.text = userPickedPath;
-                  }
+                  final DirectoryLocation? path =
+                      await FlutterFileDialog.pickDirectory();
+                  _pathFieldController.text = path.toString();
                 },
                 readOnly: true,
                 decoration: InputDecoration(

@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   totp_dart:
     path: ../totp_dart
+  flutter_file_dialog:
+    path: ../flutter_file_dialog
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -54,7 +56,6 @@ dependencies:
   encrypt: ^5.0.3
   path_provider: ^2.1.5
   hashlib: ^2.3.0
-  file_picker: ^10.3.8
   permission_handler: ^12.0.1
 
 dev_dependencies:
