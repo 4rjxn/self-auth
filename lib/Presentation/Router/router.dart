@@ -10,5 +10,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ScanCodeRoute.page, fullscreenDialog: true),
     AutoRoute(page: SettingsRoute.page),
     AutoRoute(page: BackupRoute.page),
+    AutoRoute(page: RestoreRoute.page),
   ];
 }

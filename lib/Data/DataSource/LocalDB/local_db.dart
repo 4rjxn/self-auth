@@ -25,17 +25,10 @@ class LocalDatabase {
 
   Future<bool> setNewAccount({required AccountModel data}) async {
     final db = await database;
-    int status = -1;
-    if (data.id == -1) {
-      final jsonData = data.toJson();
-      jsonData.remove('id');
-      status = await db.insert("accounts", jsonData);
-    }
-    if (status == 0) {
-      return false;
-    } else {
-      return true;
-    }
+    final jsonData = data.toJson();
+    jsonData.remove('id');
+    await db.insert("accounts", jsonData);
+    return true;
   }
 
   Future<bool> updateAccount({required AccountModel data}) async {

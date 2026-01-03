@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<HomePageBloc>(create: (_) => HomePageBloc()),
+        BlocProvider<HomePageBloc>(create: (_) => getIt<HomePageBloc>()),
         BlocProvider<SettingsPageBloc>(create: (_) => SettingsPageBloc()),
       ],
       child: ScreenUtilInit(

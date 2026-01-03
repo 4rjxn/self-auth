@@ -9,26 +9,28 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:flutter/material.dart' as _i7;
-import 'package:qauth/Domain/Entity/account_entity.dart' as _i8;
+import 'package:auto_route/auto_route.dart' as _i7;
+import 'package:flutter/material.dart' as _i8;
+import 'package:qauth/Domain/Entity/account_entity.dart' as _i9;
 import 'package:qauth/Presentation/Pages/AccountEditPage/account_edit_page.dart'
     as _i1;
 import 'package:qauth/Presentation/Pages/HomePage/home_page.dart' as _i3;
 import 'package:qauth/Presentation/Pages/ScanCodePage/scan_code_page.dart'
-    as _i4;
-import 'package:qauth/Presentation/Pages/SettingsPage/settings_page.dart'
     as _i5;
+import 'package:qauth/Presentation/Pages/SettingsPage/settings_page.dart'
+    as _i6;
 import 'package:qauth/Presentation/Pages/SettingsPage/SubPages/backup_page.dart'
     as _i2;
+import 'package:qauth/Presentation/Pages/SettingsPage/SubPages/restore_page.dart'
+    as _i4;
 
 /// generated route for
 /// [_i1.AccountEditPage]
-class AccountEditRoute extends _i6.PageRouteInfo<AccountEditRouteArgs> {
+class AccountEditRoute extends _i7.PageRouteInfo<AccountEditRouteArgs> {
   AccountEditRoute({
-    _i7.Key? key,
-    _i8.AccountEntity? account,
-    List<_i6.PageRouteInfo>? children,
+    _i8.Key? key,
+    _i9.AccountEntity? account,
+    List<_i7.PageRouteInfo>? children,
   }) : super(
          AccountEditRoute.name,
          args: AccountEditRouteArgs(key: key, account: account),
@@ -37,7 +39,7 @@ class AccountEditRoute extends _i6.PageRouteInfo<AccountEditRouteArgs> {
 
   static const String name = 'AccountEditRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<AccountEditRouteArgs>(
@@ -51,9 +53,9 @@ class AccountEditRoute extends _i6.PageRouteInfo<AccountEditRouteArgs> {
 class AccountEditRouteArgs {
   const AccountEditRouteArgs({this.key, this.account});
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
-  final _i8.AccountEntity? account;
+  final _i9.AccountEntity? account;
 
   @override
   String toString() {
@@ -73,8 +75,8 @@ class AccountEditRouteArgs {
 
 /// generated route for
 /// [_i2.BackupPage]
-class BackupRoute extends _i6.PageRouteInfo<BackupRouteArgs> {
-  BackupRoute({_i7.Key? key, List<_i6.PageRouteInfo>? children})
+class BackupRoute extends _i7.PageRouteInfo<BackupRouteArgs> {
+  BackupRoute({_i8.Key? key, List<_i7.PageRouteInfo>? children})
     : super(
         BackupRoute.name,
         args: BackupRouteArgs(key: key),
@@ -83,7 +85,7 @@ class BackupRoute extends _i6.PageRouteInfo<BackupRouteArgs> {
 
   static const String name = 'BackupRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<BackupRouteArgs>(
@@ -97,7 +99,7 @@ class BackupRoute extends _i6.PageRouteInfo<BackupRouteArgs> {
 class BackupRouteArgs {
   const BackupRouteArgs({this.key});
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   @override
   String toString() {
@@ -117,13 +119,13 @@ class BackupRouteArgs {
 
 /// generated route for
 /// [_i3.HomePage]
-class HomeRoute extends _i6.PageRouteInfo<void> {
-  const HomeRoute({List<_i6.PageRouteInfo>? children})
+class HomeRoute extends _i7.PageRouteInfo<void> {
+  const HomeRoute({List<_i7.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
       return const _i3.HomePage();
@@ -132,9 +134,25 @@ class HomeRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.ScanCodePage]
-class ScanCodeRoute extends _i6.PageRouteInfo<ScanCodeRouteArgs> {
-  ScanCodeRoute({_i7.Key? key, List<_i6.PageRouteInfo>? children})
+/// [_i4.RestorePage]
+class RestoreRoute extends _i7.PageRouteInfo<void> {
+  const RestoreRoute({List<_i7.PageRouteInfo>? children})
+    : super(RestoreRoute.name, initialChildren: children);
+
+  static const String name = 'RestoreRoute';
+
+  static _i7.PageInfo page = _i7.PageInfo(
+    name,
+    builder: (data) {
+      return const _i4.RestorePage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i5.ScanCodePage]
+class ScanCodeRoute extends _i7.PageRouteInfo<ScanCodeRouteArgs> {
+  ScanCodeRoute({_i8.Key? key, List<_i7.PageRouteInfo>? children})
     : super(
         ScanCodeRoute.name,
         args: ScanCodeRouteArgs(key: key),
@@ -143,13 +161,13 @@ class ScanCodeRoute extends _i6.PageRouteInfo<ScanCodeRouteArgs> {
 
   static const String name = 'ScanCodeRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ScanCodeRouteArgs>(
         orElse: () => const ScanCodeRouteArgs(),
       );
-      return _i4.ScanCodePage(key: args.key);
+      return _i5.ScanCodePage(key: args.key);
     },
   );
 }
@@ -157,7 +175,7 @@ class ScanCodeRoute extends _i6.PageRouteInfo<ScanCodeRouteArgs> {
 class ScanCodeRouteArgs {
   const ScanCodeRouteArgs({this.key});
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   @override
   String toString() {
@@ -176,17 +194,17 @@ class ScanCodeRouteArgs {
 }
 
 /// generated route for
-/// [_i5.SettingsPage]
-class SettingsRoute extends _i6.PageRouteInfo<void> {
-  const SettingsRoute({List<_i6.PageRouteInfo>? children})
+/// [_i6.SettingsPage]
+class SettingsRoute extends _i7.PageRouteInfo<void> {
+  const SettingsRoute({List<_i7.PageRouteInfo>? children})
     : super(SettingsRoute.name, initialChildren: children);
 
   static const String name = 'SettingsRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
-      return const _i5.SettingsPage();
+      return const _i6.SettingsPage();
     },
   );
 }

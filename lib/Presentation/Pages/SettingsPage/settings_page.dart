@@ -22,6 +22,12 @@ class SettingsPage extends StatelessWidget {
                 discription: "Configure Backup Options.",
                 route: BackupRoute(),
               ),
+              SizedBox(height: 20.h),
+              SettingsTile(
+                title: "Restore",
+                discription: "Restore from an existing backup file",
+                route: RestoreRoute(),
+              ),
               SizedBox(height: 10),
             ],
           ),

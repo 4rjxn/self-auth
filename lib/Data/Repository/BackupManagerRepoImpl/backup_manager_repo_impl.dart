@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:isolate';
 
 import 'package:flutter/services.dart';
@@ -39,6 +40,26 @@ class BackupManagerRepoImpl implements BackupManagerRepo {
         mimeType: "application/octet-stream",
         replace: true,
       );
+    });
+  }
+
+  @override
+  Future<void> restore({required String backupFilePath}) async {
+    final rootToken = ServicesBinding.rootIsolateToken!;
+    final LocalDatabase localDatabase = LocalDatabase.instance;
+    await Isolate.run(() async {
+      BackgroundIsolateBinaryMessenger.ensureInitialized(rootToken);
+      final List<AccountModel> accounts =
+          await BackupEncryptionHandler.decryptJsonData(
+            backupFilePath: backupFilePath,
+          );
+      for (final account in accounts) {
+        final AccountModel encryptedModel = await EncryptionHandler.encrypt(
+          account: account,
+        );
+        await localDatabase.setNewAccount(data: encryptedModel);
+        print("added data --------------------->>>>>>>>");
+      }
     });
   }
 }
