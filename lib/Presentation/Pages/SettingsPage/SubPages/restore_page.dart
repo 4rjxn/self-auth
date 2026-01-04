@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import 'package:pik_file/pik_file.dart';
 import 'package:qauth/Presentation/Pages/SettingsPage/Bloc/settings_page_bloc.dart';
 
 @RoutePage()

@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:isolate';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import 'package:pik_file/pik_file.dart';
 import 'package:qauth/Data/DataSource/LocalDB/local_db.dart';
 import 'package:qauth/Data/EncryptionHandlers/Handlers/backup_encryption_handler.dart';
 import 'package:qauth/Data/EncryptionHandlers/Handlers/encryption_handler.dart';
