@@ -133,7 +133,7 @@ class OtpTile extends StatelessWidget {
                                   color: Colors.black,
                                   child: Text(
                                     "Edit",
-                                    style: TextStyle(color: Colors.white),
+                                    style: GlobalTextStyles.otpTileText,
                                   ),
                                 ),
                                 MaterialButton(
