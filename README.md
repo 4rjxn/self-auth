@@ -27,4 +27,4 @@ Since the project is still evolving, there isn't a definitive name yet, but it w
 - **Enhanced Security Features:** Future updates will focus on adding additional layers of security and improving the app's usability.
   
 ## Getting Started
-We currently do not have a relese build.
+We currently do not have a relese build. We are focusing on backend for now.
