@@ -1,3 +1,4 @@
+//handles encryption
 import 'package:encrypt/encrypt.dart';
 import 'package:qauth/Data/EncryptionHandlers/LocalKeyStore/local_key_helper.dart';
 import 'package:qauth/Data/Models/AccountModel/account_model.dart';
